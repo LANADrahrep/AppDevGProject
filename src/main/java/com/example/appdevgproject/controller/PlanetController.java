@@ -1,5 +1,6 @@
 package com.example.appdevgproject.controller;
 
+import com.example.appdevgproject.entity.Moon;
 import com.example.appdevgproject.entity.Planet;
 import com.example.appdevgproject.service.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,16 @@ public class PlanetController {
 
     @PostMapping
     public Planet createPlanet(@RequestBody Planet planet) {
+        if (planet.getMoons() != null) {
+            for (Moon moon : planet.getMoons()) {
+                moon.setId(null);         // Ensure it's a new entity
+                moon.setPlanet(planet);   // Set parent reference
+            }
+        }
         return planetService.savePlanet(planet);
     }
+
+
 
     @DeleteMapping("/{id}")
     public void deletePlanet(@PathVariable Long id) {
