@@ -43,4 +43,48 @@ public class MoonController {
     public void deleteMoon(@PathVariable Long id) {
         moonService.deleteMoon(id);
     }
+
+    //custom queries below
+    @GetMapping("/name/{name}")
+    public List<Moon> getMoonByName(@PathVariable String name) {
+        return moonService.getMoonByName(name);
+    }
+
+    @GetMapping("/{id}/radius")
+    public Double getMoonRadius(@PathVariable Long id) {
+        return moonService.getMoonRadiusById(id);
+    }
+
+    @GetMapping("/{id}/mass")
+    public Double getMoonMass(@PathVariable Long id) {
+        return moonService.getMoonMassById(id);
+    }
+
+    @GetMapping("/of-planet-with-max-radius")
+    public List<Moon> moonsOfPlanetWithMaxRadius() {
+        return moonService.getMoonsOfPlanetWithMaxRadius();
+    }
+
+    @GetMapping("/of-planet-with-min-radius")
+    public List<Moon> moonsOfPlanetWithMinRadius() {
+        return moonService.getMoonsOfPlanetWithMinRadius();
+    }
+
+    @GetMapping("/of-planet-with-max-mass")
+    public List<Moon> moonsOfPlanetWithMaxMass() {
+        return moonService.getMoonsOfPlanetWithMaxMass();
+    }
+
+    @GetMapping("/of-planet-with-min-mass")
+    public List<Moon> moonsOfPlanetWithMinMass() {
+        return moonService.getMoonsOfPlanetWithMinMass();
+    }
+
+
+
+
+
+
+
+
 }

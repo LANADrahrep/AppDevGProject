@@ -33,4 +33,35 @@ public class PlanetService {
     public void deletePlanet(Long id) {
         planetRepository.deleteById(id);
     }
+
+    //custom queries below
+    public List<Planet> getPlanetByName(String name) {
+        return planetRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public Double getPlanetRadiusById(Long id) {
+        return planetRepository.findById(id).map(Planet::getRadius).orElse(null);
+    }
+
+    public Double getPlanetMassById(Long id) {
+        return planetRepository.findById(id).map(Planet::getMass).orElse(null);
+    }
+
+    public List<Planet> getPlanetsWithMinMoons(int minMoons) {
+        return planetRepository.findPlanetsWithMinMoons(minMoons);
+    }
+
+    public Planet getPlanetWithMostMoons() {
+        return planetRepository.findPlanetWithMostMoons();
+    }
+
+    public Planet getPlanetWithLeastMoons() {
+        return planetRepository.findPlanetWithLeastMoons();
+    }
+
+
+
+
+
+
 }

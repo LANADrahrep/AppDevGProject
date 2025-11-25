@@ -37,4 +37,39 @@ public class MoonService {
     public void deleteMoon(Long id) {
         moonRepository.deleteById(id);
     }
+    //custom queries below
+    public List<Moon> getMoonByName(String name) {
+        return moonRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public Double getMoonRadiusById(Long id) {
+        return moonRepository.findById(id).map(Moon::getRadius).orElse(null);
+    }
+
+    public Double getMoonMassById(Long id) {
+        return moonRepository.findById(id).map(Moon::getMass).orElse(null);
+    }
+
+    public List<Moon> getMoonsOfPlanetWithMaxRadius() {
+        return moonRepository.findMoonsOfPlanetWithMaxRadius();
+    }
+
+    public List<Moon> getMoonsOfPlanetWithMinRadius() {
+        return moonRepository.findMoonsOfPlanetWithMinRadius();
+    }
+
+    public List<Moon> getMoonsOfPlanetWithMaxMass() {
+        return moonRepository.findMoonsOfPlanetWithMaxMass();
+    }
+
+    public List<Moon> getMoonsOfPlanetWithMinMass() {
+        return moonRepository.findMoonsOfPlanetWithMinMass();
+    }
+
+
+
+
+
+
+
 }

@@ -47,4 +47,43 @@ public class PlanetController {
     public void deletePlanet(@PathVariable Long id) {
         planetService.deletePlanet(id);
     }
+
+    //custom queries below
+    @GetMapping("/search")
+    public List<Planet> searchPlanetByName(@RequestParam String name) {
+        return planetService.getPlanetByName(name);
+    }
+
+    @GetMapping("/{id}/radius")
+    public Double getPlanetRadius(@PathVariable Long id) {
+        return planetService.getPlanetRadiusById(id);
+    }
+
+    @GetMapping("/{id}/mass")
+    public Double getPlanetMass(@PathVariable Long id) {
+        return planetService.getPlanetMassById(id);
+    }
+
+    @GetMapping("/with-min-moons")
+    public List<Planet> planetsWithMinMoons(@RequestParam int minMoons) {
+        return planetService.getPlanetsWithMinMoons(minMoons);
+    }
+
+    @GetMapping("/with-most-moons")
+    public Planet planetWithMostMoons() {
+        return planetService.getPlanetWithMostMoons();
+    }
+
+    @GetMapping("/with-least-moons")
+    public Planet planetWithLeastMoons() {
+        return planetService.getPlanetWithLeastMoons();
+    }
+
+
+
+
+
+
+
+
 }
