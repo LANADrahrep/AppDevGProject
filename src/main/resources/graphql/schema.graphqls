@@ -1,0 +1,19 @@
+type Query {
+    planets: [Planet]
+    moons: [Moon]
+}
+
+type Planet {
+    id: ID!
+    name: String
+    radius: Float
+    mass: Float
+    moons: [Moon]
+}
+
+type Moon {
+    id: ID!
+    name: String
+    radius: Float
+    mass: Float
+}
