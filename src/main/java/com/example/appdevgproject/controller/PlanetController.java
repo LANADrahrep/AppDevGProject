@@ -4,6 +4,7 @@ import com.example.appdevgproject.entity.Moon;
 import com.example.appdevgproject.entity.Planet;
 import com.example.appdevgproject.service.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,16 +21,19 @@ public class PlanetController {
         this.planetService = planetService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping
     public List<Planet> getAllPlanets() {
         return planetService.getAllPlanets();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/{id}")
     public Optional<Planet> getPlanetById(@PathVariable Long id) {
         return planetService.getPlanetById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     @PostMapping
     public Planet createPlanet(@RequestBody Planet planet) {
         if (planet.getMoons() != null) {
@@ -41,39 +45,44 @@ public class PlanetController {
         return planetService.savePlanet(planet);
     }
 
-
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deletePlanet(@PathVariable Long id) {
         planetService.deletePlanet(id);
     }
 
     //custom queries below
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/search")
     public List<Planet> searchPlanetByName(@RequestParam String name) {
         return planetService.getPlanetByName(name);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/{id}/radius")
     public Double getPlanetRadius(@PathVariable Long id) {
         return planetService.getPlanetRadiusById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/{id}/mass")
     public Double getPlanetMass(@PathVariable Long id) {
         return planetService.getPlanetMassById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/with-min-moons")
     public List<Planet> planetsWithMinMoons(@RequestParam int minMoons) {
         return planetService.getPlanetsWithMinMoons(minMoons);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/with-most-moons")
     public Planet planetWithMostMoons() {
         return planetService.getPlanetWithMostMoons();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/with-least-moons")
     public Planet planetWithLeastMoons() {
         return planetService.getPlanetWithLeastMoons();

@@ -1,0 +1,12 @@
+package com.example.appdevgproject;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+public class PasswordHashGenerator {
+    public static void main(String[] args) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println("admin123 -> " + encoder.encode("admin123"));
+        System.out.println("staff123 -> " + encoder.encode("staff123"));
+        System.out.println("student123 -> " + encoder.encode("student123"));
+    }
+}
