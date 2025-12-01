@@ -1,7 +1,10 @@
 package com.example.appdevgproject.controller;
 
+import com.example.appdevgproject.dto.CreateMoonDto;
+import com.example.appdevgproject.dto.MoonDto;
 import com.example.appdevgproject.entity.Moon;
 import com.example.appdevgproject.service.MoonService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,31 +23,29 @@ public class MoonController {
         this.moonService = moonService;
     }
 
+    // get
     @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping
-    public List<Moon> getAllMoons() {
+    public List<MoonDto> getAllMoons() {
         return moonService.getAllMoons();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/{id}")
-    public Optional<Moon> getMoonById(@PathVariable Long id) {
+    public MoonDto getMoonById(@PathVariable Long id) {
         return moonService.getMoonById(id);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
-    @GetMapping("/planet/{planetId}")
-    public List<Moon> getMoonsByPlanetId(@PathVariable Long planetId) {
-        return moonService.getMoonsByPlanetId(planetId);
-    }
-
+    // post
     @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     @PostMapping
-    public Moon createMoon(@RequestBody Moon moon) {
-        return moonService.saveMoon(moon);
+    public MoonDto createMoon(@Valid @RequestBody CreateMoonDto dto) {
+        return moonService.createMoon(dto);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    // delete
+    // dto not needed as this returns 200 and no response body
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteMoon(@PathVariable Long id) {
         moonService.deleteMoon(id);
@@ -53,43 +54,38 @@ public class MoonController {
     //custom queries below
     @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/name/{name}")
-    public List<Moon> getMoonByName(@PathVariable String name) {
+    public List<MoonDto> getMoonByName(@PathVariable String name) {
         return moonService.getMoonByName(name);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
-    @GetMapping("/{id}/radius")
-    public Double getMoonRadius(@PathVariable Long id) {
-        return moonService.getMoonRadiusById(id);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
-    @GetMapping("/{id}/mass")
-    public Double getMoonMass(@PathVariable Long id) {
-        return moonService.getMoonMassById(id);
+    @GetMapping("/planet/{planetId}")
+    public List<MoonDto> getMoonsByPlanetId(@PathVariable Long planetId) {
+        return moonService.getMoonsByPlanetId(planetId);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/of-planet-with-max-radius")
-    public List<Moon> moonsOfPlanetWithMaxRadius() {
+    public List<MoonDto> moonsOfPlanetWithMaxRadius() {
         return moonService.getMoonsOfPlanetWithMaxRadius();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/of-planet-with-min-radius")
-    public List<Moon> moonsOfPlanetWithMinRadius() {
+    public List<MoonDto> moonsOfPlanetWithMinRadius() {
         return moonService.getMoonsOfPlanetWithMinRadius();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/of-planet-with-max-mass")
-    public List<Moon> moonsOfPlanetWithMaxMass() {
+    public List<MoonDto> moonsOfPlanetWithMaxMass() {
         return moonService.getMoonsOfPlanetWithMaxMass();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','STAFF','STUDENT')")
     @GetMapping("/of-planet-with-min-mass")
-    public List<Moon> moonsOfPlanetWithMinMass() {
+    public List<MoonDto> moonsOfPlanetWithMinMass() {
         return moonService.getMoonsOfPlanetWithMinMass();
     }
+
 }
