@@ -1,4 +1,4 @@
-**Project Overview**
+## Project Overview
 
 This project is a Spring Boot 3.5 REST and GraphQL API for managing a planetary system. 
 It models planets, their moons, and application users, backed by H2 and Spring Data JPA.
@@ -17,7 +17,7 @@ and an AspectJ-based logging aspect that logs controller, service, and repositor
 The API is documented with Swagger/OpenAPI, making it easy to explore and test endpoints via Swagger UI and GraphiQL.
 
 
-**Running the Project**
+## Project Requirements
 
 - Requirements: Java 17, Maven.  
 - The app starts on `http://localhost:8080`.  
