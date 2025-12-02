@@ -28,5 +28,6 @@ public class Planet {
     private double mass;
 
     @OneToMany(mappedBy = "planet", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Moon> moons;
 }

@@ -28,5 +28,6 @@ public class Moon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "planet_id", nullable = false)
     @com.fasterxml.jackson.annotation.JsonIgnore
+    @ToString.Exclude
     private Planet planet;
 }

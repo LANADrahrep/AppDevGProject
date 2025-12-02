@@ -1,8 +1,3 @@
-type Query {
-    planets: [Planet]
-    moons: [Moon]
-}
-
 type Planet {
     id: ID!
     name: String
@@ -16,4 +11,27 @@ type Moon {
     name: String
     radius: Float
     mass: Float
+}
+
+type User {
+    id: ID!
+    username: String!
+    role: Role!
+    enabled: Boolean!
+}
+
+enum Role {
+    ADMIN
+    STAFF
+    STUDENT
+}
+
+type Query {
+    planets: [Planet]
+    moons: [Moon]
+    userById(id: ID!): User
+}
+
+type Mutation {
+    createUser(username: String!, password: String!, role: Role!): User
 }
